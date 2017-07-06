@@ -1,5 +1,45 @@
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
+#enforce compiler variables
+set(COMPILER_VARIABLES
+	CMAKE_C_FLAGS_DEBUG_INIT
+	CMAKE_C_FLAGS_MINSIZEREL_INIT
+	CMAKE_C_FLAGS_RELEASE_INIT
+	CMAKE_C_FLAGS_RELWITHDEBINFO_INIT
+	CMAKE_CXX_FLAGS_DEBUG_INIT
+	CMAKE_CXX_FLAGS_MINSIZEREL_INIT
+	CMAKE_CXX_FLAGS_RELEASE_INIT
+	CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT
+	CMAKE_C_FLAGS_DEBUG
+	CMAKE_C_FLAGS_MINSIZEREL
+	CMAKE_C_FLAGS_RELEASE
+	CMAKE_C_FLAGS_RELWITHDEBINFO
+	CMAKE_CXX_FLAGS_DEBUG
+	CMAKE_CXX_FLAGS_MINSIZEREL
+	CMAKE_CXX_FLAGS_RELEASE
+	CMAKE_CXX_FLAGS_RELWITHDEBINFO
+	CMAKE_C_FLAGS
+	CMAKE_CXX_FLAGS)
+	
+foreach(flag_var ${COMPILER_VARIABLES})
+	set(${flag_var} "${${flag_var}} -D_ITERATOR_DEBUG_LEVEL=0")
+endforeach(flag_var)
+
+foreach(flag_var ${COMPILER_VARIABLES})
+
+	if (${flag_var} MATCHES "/MD")
+		string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+	elseif()
+		set(${flag_var} "${${flag_var}} /MT")
+	endif(${flag_var} MATCHES "/MD")
+
+	if (${flag_var} MATCHES "/D_WINDOWS")
+		string(REGEX REPLACE "/D_WINDOWS" "/D_WINDOWS /MP" ${flag_var} "${${flag_var}}")
+	endif(${flag_var} MATCHES "/D_WINDOWS")
+
+	message("Compiler Flag: ${flag_var} is '${${flag_var}}'")
+endforeach(flag_var)
+
 # Set a consistent MACOSX_RPATH default across all CMake versions.
 # When CMake 2.8.12 is required, change this default to 1.
 # When CMake 3.0.0 is required, remove this block (see CMP0042).
