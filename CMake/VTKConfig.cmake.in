@@ -123,7 +123,7 @@ vtk_module_config(VTK ${VTK_MODULES_REQUESTED})
 #-----------------------------------------------------------------------------
 
 # VTK global configuration options.
-SET(VTK_BUILD_SHARED_LIBS "@BUILD_SHARED_LIBS@")
+SET(VTK_BUILD_SHARED_LIBS "OFF")
 SET(VTK_LEGACY_REMOVE "@VTK_LEGACY_REMOVE@")
 SET(VTK_LEGACY_SILENT "@VTK_LEGACY_SILENT@")
 SET(VTK_WRAP_PYTHON "@VTK_WRAP_PYTHON@")
