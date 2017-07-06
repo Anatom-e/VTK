@@ -191,7 +191,7 @@ if (ANDROID OR APPLE_IOS)
   endif()
 else()
   # Choose static or shared libraries.
-  option(BUILD_SHARED_LIBS "Build VTK with shared libraries." ON)
+  option(BUILD_SHARED_LIBS "Build VTK with shared libraries." OFF)
 endif()
 
 # default to not using the system GLEW as ours has fixes in it right now
